@@ -3,6 +3,7 @@ using System.IO;
 using System.Net.Sockets;
 using System.Net;
 using System.Text.Json;
+using System.Text;
 using LibData;
 
 
@@ -80,7 +81,27 @@ namespace LibClient
         /// <returns>The result of the request</returns>
         public Output start()
         {
+            byte[] buffer = new byte[1000];
+            byte[] msg = null;
 
+            Console.WriteLine("What's the message sur: ");
+            string inpMsg = Console.ReadLine();
+            msg = Encoding.ASCII.GetBytes(inpMsg);
+
+            IPEndPoint sender = new IPEndPoint(IPAddress.Any, 0); //?
+            EndPoint remoteEP = (EndPoint)sender;                  //?
+
+            try
+            {
+                Socket sock = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+                sock.Connect(serverEndPoint);
+                sock.SendTo(msg, msg.Length, SocketFlags.None, serverEndPoint);
+                int responseInt = sock.ReceiveFrom(buffer, ref remoteEP);
+                string data = Encoding.ASCII.GetString(buffer, 0, responseInt);
+                Console.WriteLine("Server response: " + data);
+                sock.Close();
+            }
+            catch { Console.WriteLine("CONNETCION ERROR"); }
             // todo: implement the body to communicate with the server and requests the book. Return the result as an Output object.
             // Adding extra methods to the class is permitted. The signature of this method must not change.
 
