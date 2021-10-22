@@ -88,8 +88,10 @@ namespace LibClient
             string inpMsg = Console.ReadLine();
             msg = Encoding.ASCII.GetBytes(inpMsg);
 
-            IPEndPoint sender = new IPEndPoint(IPAddress.Any, 0); //?
-            EndPoint remoteEP = (EndPoint)sender;                  //?
+            IPAddress ServerIP = IPAddress.Parse("127.0.0.1");
+
+            IPEndPoint sender = new IPEndPoint(ServerIP, 32000); 
+            EndPoint remoteEP = (EndPoint)sender;                  
 
             try
             {
