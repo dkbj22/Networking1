@@ -4,7 +4,7 @@ using System.Net;
 using System.Net.Sockets;
 using System.IO;
 using LibData;
-
+using System.Text;
 
 namespace LibServer
 {
@@ -31,6 +31,39 @@ namespace LibServer
 
         public void start()
         {
+            string data = null;
+            byte[] buffer = new byte[1000];
+            byte[] msg = Encoding.ASCII.GetBytes("From server: Your message has been delivered\n");
+
+            IPAddress ServerIP = IPAddress.Parse("127.0.0.1");
+            IPEndPoint localEndpoint = new IPEndPoint(ServerIP, 32000);
+
+            Socket sock = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+
+            sock.Bind(localEndpoint);
+            sock.Listen(5);
+            Console.WriteLine("\nWaiting for clients...");
+            Socket newSock = sock.Accept();
+
+            while (true)
+            {
+                int b = newSock.Receive(buffer);
+                data = Encoding.ASCII.GetString(buffer, 0, b);
+
+                if (data == "Closed")
+                {
+                    newSock.Close();
+                    Console.WriteLine("Closing the socket..");
+                    break;
+                }
+                else
+                {
+                    Console.WriteLine("" + data);
+                    data = null;
+                    newSock.Send(msg);
+                }
+            }
+            sock.Close();
             //todo: implement the body. Add extra fields and methods to the class if it is needed
 
         }
