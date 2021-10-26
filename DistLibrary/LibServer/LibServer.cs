@@ -46,7 +46,7 @@ namespace LibServer
             this.iPAddress = IPAddress.Parse(settings.ServerIPAddress);
             this.portNumber = settings.ServerPortNumber;
 
-            //
+            //xta
             //IPAddress ServerIP = IPAddress.Parse("127.0.0.1");
             IPEndPoint localEndpoint = new IPEndPoint(this.iPAddress, this.portNumber);
 
