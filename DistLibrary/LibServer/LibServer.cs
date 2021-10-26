@@ -24,6 +24,11 @@ namespace LibServer
     // Note: Complete the implementation of this class. You can adjust the structure of this class. 
     public class SequentialServer
     {
+        public Setting settings;
+        public IPAddress iPAddress;
+        public int portNumber;
+        public string configFile = @"../../../ClientServerConfig.json";
+
         public SequentialServer()
         {
             //todo: implement the body. Add extra fields and methods to the class if it is needed
@@ -35,8 +40,15 @@ namespace LibServer
             byte[] buffer = new byte[1000];
             byte[] msg = Encoding.ASCII.GetBytes("From server: Your message has been delivered\n");
 
-            IPAddress ServerIP = IPAddress.Parse("127.0.0.1");
-            IPEndPoint localEndpoint = new IPEndPoint(ServerIP, 32000);
+            //
+            string configContent = File.ReadAllText(configFile);
+            this.settings = JsonSerializer.Deserialize<Setting>(configContent);
+            this.iPAddress = IPAddress.Parse(settings.ServerIPAddress);
+            this.portNumber = settings.ServerPortNumber;
+
+            //
+            //IPAddress ServerIP = IPAddress.Parse("127.0.0.1");
+            IPEndPoint localEndpoint = new IPEndPoint(this.iPAddress, this.portNumber);
 
             Socket sock = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
 
