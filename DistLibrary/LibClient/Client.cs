@@ -82,6 +82,7 @@ namespace LibClient
         /// <returns>The result of the request</returns>
         public Output start()
         {
+            Console.WriteLine("start()");
             // Tobias 10-11-2021
             string configContent = File.ReadAllText(configFile);
             this.settings = JsonSerializer.Deserialize<Setting>(configContent);
@@ -92,25 +93,41 @@ namespace LibClient
             byte[] buffer = new byte[1000];
             byte[] msg = null;
 
-            Console.WriteLine("What's the message sur: ");
-            string inpMsg = Console.ReadLine();
-            msg = Encoding.ASCII.GetBytes(inpMsg);
+
+            Message hello = new Message();
+            hello.Content = this.client_id;
+            hello.Type = MessageType.Hello;
+;            
+            string strhellomsg = JsonSerializer.Serialize(hello);
+            msg = Encoding.ASCII.GetBytes(strhellomsg);
+            
 
             IPEndPoint sender = new IPEndPoint(ipAddress, ServerPortNumber); 
-            EndPoint remoteEP = (EndPoint)sender;                  
+            EndPoint remoteEP = (EndPoint)sender;
+            Socket sock = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+
+            try
+            {   
+                sock.Connect(sender);
+                Console.WriteLine("Trying to connect");
+            }
+            catch
+            {
+                Console.WriteLine("Connection error");
+            }
 
             try
             {
-                Socket sock = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-                sock.Connect(sender);
-                Console.WriteLine("Trying to connect");
                 sock.SendTo(msg, msg.Length, SocketFlags.None, sender);
                 Console.WriteLine("Sending message to server");
                 int responseInt = sock.ReceiveFrom(buffer, ref remoteEP);
                 string data = Encoding.ASCII.GetString(buffer, 0, responseInt);
                 Console.WriteLine("Server response: " + data);
             }
-            catch { Console.WriteLine("CONNETCION ERROR"); }
+            catch 
+            { 
+                Console.WriteLine("Message error"); 
+            }
             // todo: implement the body to communicate with the server and requests the book. Return the result as an Output object.
             // Adding extra methods to the class is permitted. The signature of this method must not change.
 
