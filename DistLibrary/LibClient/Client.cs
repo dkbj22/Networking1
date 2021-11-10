@@ -102,14 +102,13 @@ namespace LibClient
             try
             {
                 Socket sock = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-                sock.Connect(serverEndPoint);
+                sock.Connect(sender);
                 Console.WriteLine("Trying to connect");
-                sock.SendTo(msg, msg.Length, SocketFlags.None, serverEndPoint);
+                sock.SendTo(msg, msg.Length, SocketFlags.None, sender);
                 Console.WriteLine("Sending message to server");
                 int responseInt = sock.ReceiveFrom(buffer, ref remoteEP);
                 string data = Encoding.ASCII.GetString(buffer, 0, responseInt);
                 Console.WriteLine("Server response: " + data);
-                sock.Close();
             }
             catch { Console.WriteLine("CONNETCION ERROR"); }
             // todo: implement the body to communicate with the server and requests the book. Return the result as an Output object.

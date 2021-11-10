@@ -75,6 +75,7 @@ namespace LibServer
                 {
                     Console.WriteLine("" + data);
                     data = null;
+                    //b = null;
                     newSock.Send(msg);
                 }
             }
