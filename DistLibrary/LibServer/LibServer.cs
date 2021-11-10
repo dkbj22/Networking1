@@ -27,7 +27,8 @@ namespace LibServer
         public Setting settings;
         public IPAddress iPAddress;
         public int portNumber;
-        public string configFile = @"../../../ClientServerConfig.json";
+        public int ServerListeningQueue;
+        public string configFile = @"../../../../ClientServerConfig.json";
 
         public SequentialServer()
         {
@@ -45,6 +46,7 @@ namespace LibServer
             this.settings = JsonSerializer.Deserialize<Setting>(configContent);
             this.iPAddress = IPAddress.Parse(settings.ServerIPAddress);
             this.portNumber = settings.ServerPortNumber;
+            this.ServerListeningQueue = settings.ServerListeningQueue;
 
             //xta
             //IPAddress ServerIP = IPAddress.Parse("127.0.0.1");
@@ -53,7 +55,7 @@ namespace LibServer
             Socket sock = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
 
             sock.Bind(localEndpoint);
-            sock.Listen(5);
+            sock.Listen(ServerListeningQueue);
             Console.WriteLine("\nWaiting for clients...");
             Socket newSock = sock.Accept();
 

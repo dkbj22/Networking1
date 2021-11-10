@@ -47,7 +47,8 @@ namespace LibClient
         public string configFile = @"../../../../ClientServerConfig.json"; // for debugging
 
         // todo: add extra fields here in case needed 
-
+        public int ServerPortNumber;
+        // public IPAddress ServerIPAddress;
         /// <summary>
         /// Initializes the client based on the given parameters and seeting file.
         /// </summary>
@@ -81,6 +82,13 @@ namespace LibClient
         /// <returns>The result of the request</returns>
         public Output start()
         {
+            // Tobias 10-11-2021
+            string configContent = File.ReadAllText(configFile);
+            this.settings = JsonSerializer.Deserialize<Setting>(configContent);
+            this.ipAddress = IPAddress.Parse(settings.ServerIPAddress);
+            this.ServerPortNumber = settings.ServerPortNumber;
+            //
+
             byte[] buffer = new byte[1000];
             byte[] msg = null;
 
@@ -88,9 +96,7 @@ namespace LibClient
             string inpMsg = Console.ReadLine();
             msg = Encoding.ASCII.GetBytes(inpMsg);
 
-            IPAddress ServerIP = IPAddress.Parse("127.0.0.1");
-
-            IPEndPoint sender = new IPEndPoint(ServerIP, 32000); 
+            IPEndPoint sender = new IPEndPoint(ipAddress, ServerPortNumber); 
             EndPoint remoteEP = (EndPoint)sender;                  
 
             try
