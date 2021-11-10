@@ -103,7 +103,9 @@ namespace LibClient
             {
                 Socket sock = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
                 sock.Connect(serverEndPoint);
+                Console.WriteLine("Trying to connect");
                 sock.SendTo(msg, msg.Length, SocketFlags.None, serverEndPoint);
+                Console.WriteLine("Sending message to server");
                 int responseInt = sock.ReceiveFrom(buffer, ref remoteEP);
                 string data = Encoding.ASCII.GetString(buffer, 0, responseInt);
                 Console.WriteLine("Server response: " + data);

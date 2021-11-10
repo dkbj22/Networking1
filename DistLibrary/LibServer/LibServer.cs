@@ -48,16 +48,17 @@ namespace LibServer
             this.portNumber = settings.ServerPortNumber;
             this.ServerListeningQueue = settings.ServerListeningQueue;
 
-            //xta
-            //IPAddress ServerIP = IPAddress.Parse("127.0.0.1");
+
             IPEndPoint localEndpoint = new IPEndPoint(this.iPAddress, this.portNumber);
 
             Socket sock = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
 
             sock.Bind(localEndpoint);
+            Console.WriteLine("\nSocket binding");
             sock.Listen(ServerListeningQueue);
-            Console.WriteLine("\nWaiting for clients...");
+            Console.WriteLine("\nWaiting for clients... (Listening)");
             Socket newSock = sock.Accept();
+            Console.WriteLine("Accetping sockets");
 
             while (true)
             {
