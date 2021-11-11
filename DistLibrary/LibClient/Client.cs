@@ -128,6 +128,13 @@ namespace LibClient
             { 
                 Console.WriteLine("Message error"); 
             }
+
+            Socket newSock = sock.Accept();
+            int b = newSock.Receive(buffer);
+            string welcomeMessage = Encoding.ASCII.GetString(buffer, 0, b);
+            Console.WriteLine(welcomeMessage);
+
+
             // todo: implement the body to communicate with the server and requests the book. Return the result as an Output object.
             // Adding extra methods to the class is permitted. The signature of this method must not change.
 

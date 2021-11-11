@@ -41,7 +41,6 @@ namespace LibServer
             byte[] buffer = new byte[1000];
             byte[] msg = Encoding.ASCII.GetBytes("From server: Your message has been delivered\n");
 
-            //
             string configContent = File.ReadAllText(configFile);
             this.settings = JsonSerializer.Deserialize<Setting>(configContent);
             this.iPAddress = IPAddress.Parse(settings.ServerIPAddress);
@@ -71,16 +70,17 @@ namespace LibServer
 
                 if (typeAndContent[0] == "{\"Type\":0")
                 {
-                    
-                    //VOLGENDE STAP IN MESSAGE ORDER    Content":"Client 0"}
+                    Message welcome = new Message();
+                    welcome.Type = MessageType.Welcome;
+                    welcome.Content = "";
+
+                    string strWelcome = JsonSerializer.Serialize(welcome);
+                    msg = Encoding.ASCII.GetBytes(strWelcome);
+                    newSock.Send(msg);
+
+                    //Content":"Client 0"}
                 }
 
-                /*if (data == "Closed")
-                {
-                    newSock.Close();
-                    Console.WriteLine("Closing the socket..");
-                    break;
-                */
                 else
                 {
                     //Console.WriteLine("" + data);
