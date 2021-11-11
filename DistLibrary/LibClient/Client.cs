@@ -133,8 +133,8 @@ namespace LibClient
                 Console.WriteLine("Message error"); 
             }
             
-            Socket newSock = sock.Accept();
-            int b = newSock.Receive(buffer);
+            //Socket newSock = sock.Accept();
+            int b = sock.Receive(buffer);
             string welcomeMessage = Encoding.ASCII.GetString(buffer, 0, b);
             Console.WriteLine(welcomeMessage);
             
