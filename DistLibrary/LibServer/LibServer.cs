@@ -91,7 +91,7 @@ namespace LibServer
                     msg = Encoding.ASCII.GetBytes(strWelcome);
                     newSock.Send(msg);
 
-                    //Content":"Client 0"}
+                    //Content":"Client 0"}//
                 }
 
                 else
