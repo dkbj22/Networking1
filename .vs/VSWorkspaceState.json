@@ -1,0 +1,10 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\DistLibrary",
+    "\\DistLibrary\\LibClient",
+    "\\DistLibrary\\LibServer"
+  ],
+  "SelectedNode": "\\DistLibrary\\LibServer\\LibServer.cs",
+  "PreviewInSolutionExplorer": false
+}

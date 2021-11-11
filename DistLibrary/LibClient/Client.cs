@@ -3,6 +3,7 @@ using System.IO;
 using System.Net.Sockets;
 using System.Net;
 using System.Text.Json;
+using System.Text;
 using LibData;
 
 
@@ -42,11 +43,12 @@ namespace LibClient
         public string client_id;
         private string bookName;
         // all the required settings are provided in this file
-        public string configFile = @"../ClientServerConfig.json";
-        //public string configFile = @"../../../../ClientServerConfig.json"; // for debugging
+        //public string configFile = @"../ClientServerConfig.json";
+        public string configFile = @"../../../../ClientServerConfig.json"; // for debugging
 
         // todo: add extra fields here in case needed 
-
+        public int ServerPortNumber;
+        // public IPAddress ServerIPAddress;
         /// <summary>
         /// Initializes the client based on the given parameters and seeting file.
         /// </summary>
@@ -80,6 +82,58 @@ namespace LibClient
         /// <returns>The result of the request</returns>
         public Output start()
         {
+            Console.WriteLine("start()");
+            // Tobias 10-11-2021
+            string configContent = File.ReadAllText(configFile);
+            this.settings = JsonSerializer.Deserialize<Setting>(configContent);
+            this.ipAddress = IPAddress.Parse(settings.ServerIPAddress);
+            this.ServerPortNumber = settings.ServerPortNumber;
+            //
+
+            byte[] buffer = new byte[1000];
+            byte[] msg = null;
+
+
+            Message hello = new Message();
+            hello.Content = this.client_id;
+            hello.Type = MessageType.Hello;
+;            
+            string strhellomsg = JsonSerializer.Serialize(hello);
+            msg = Encoding.ASCII.GetBytes(strhellomsg);
+            
+
+            IPEndPoint sender = new IPEndPoint(ipAddress, ServerPortNumber); 
+            EndPoint remoteEP = (EndPoint)sender;
+            Socket sock = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+
+            try
+            {   
+                sock.Connect(sender);
+                Console.WriteLine("Trying to connect");
+            }
+            catch
+            {
+                Console.WriteLine("Connection error");
+            }
+
+            try
+            {
+                sock.SendTo(msg, msg.Length, SocketFlags.None, sender);
+                Console.WriteLine("Sending message to server");
+                int responseInt = sock.ReceiveFrom(buffer, ref remoteEP);
+                string data = Encoding.ASCII.GetString(buffer, 0, responseInt);
+                Console.WriteLine("Server response: " + data);
+            }
+            catch 
+            { 
+                Console.WriteLine("Message error"); 
+            }
+
+            Socket newSock = sock.Accept();
+            int b = newSock.Receive(buffer);
+            string welcomeMessage = Encoding.ASCII.GetString(buffer, 0, b);
+            Console.WriteLine(welcomeMessage);
+
 
             // todo: implement the body to communicate with the server and requests the book. Return the result as an Output object.
             // Adding extra methods to the class is permitted. The signature of this method must not change.
