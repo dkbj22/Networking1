@@ -32,7 +32,20 @@ namespace LibServer
 
         public SequentialServer()
         {
-            //todo: implement the body. Add extra fields and methods to the class if it is needed
+                   //todo: implement the body. Add extra fields and methods to the class if it is needed
+        }
+
+        public void sendMsg(string inp) 
+        {
+            Socket sock = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+            Socket newSock = sock.Accept();
+            byte [] inpInByte = Encoding.ASCII.GetBytes(inp);
+            newSock.Send(inpInByte);
+        }
+
+        public void recieveMsg()
+        {
+
         }
 
         public void start()
