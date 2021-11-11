@@ -58,11 +58,13 @@ namespace LibServer
             //todo: implement the body. Add extra fields and methods to the class if it is needed
         }
 
-        public void sendMsg(string inp) 
+        public void sendMsg(Message input)
         {
+            string strInput = JsonSerializer.Serialize(input);
+            Console.WriteLine(strInput);
             Socket newSock = sock.Accept();
-            byte [] inpInByte = Encoding.ASCII.GetBytes(inp);
-            newSock.Send(inpInByte);
+            byte[] inputInByte = Encoding.ASCII.GetBytes(strInput);
+            newSock.Send(inputInByte);
         }
 
         public void recieveMsg()
