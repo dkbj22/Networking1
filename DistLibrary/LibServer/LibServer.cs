@@ -65,17 +65,26 @@ namespace LibServer
                 int b = newSock.Receive(buffer);
                 data = Encoding.ASCII.GetString(buffer, 0, b);
 
-                if (data == "Closed")
+
+                string[] typeAndContent = new string [2];
+                typeAndContent = data.Split(",");
+
+                if (typeAndContent[0] == "{\"Type\":0")
+                {
+                    
+                    //VOLGENDE STAP IN MESSAGE ORDER    Content":"Client 0"}
+                }
+
+                /*if (data == "Closed")
                 {
                     newSock.Close();
                     Console.WriteLine("Closing the socket..");
                     break;
-                }
+                */
                 else
                 {
-                    Console.WriteLine("" + data);
+                    //Console.WriteLine("" + data);
                     data = null;
-                    //b = null;
                     newSock.Send(msg);
                 }
             }

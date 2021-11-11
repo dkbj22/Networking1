@@ -29,3 +29,4 @@ C:\Users\tobiz\Source\Repos\dkbj22\Networking1\DistLibrary\LibClient\obj\Debug\n
 C:\Users\tobiz\Source\Repos\dkbj22\Networking1\DistLibrary\LibClient\obj\Debug\net5.0\ref\LibClient.dll
 C:\Users\tobiz\Source\Repos\dkbj22\Networking1\DistLibrary\LibClient\obj\Debug\net5.0\LibClient.pdb
 C:\Users\tobiz\Source\Repos\dkbj22\Networking1\DistLibrary\LibClient\obj\Debug\net5.0\LibClient.genruntimeconfig.cache
+C:\Users\dkbj2\Documents\Studie\Jaar 2\OP1\ANL\NetworkingProject1\DistLibrary\LibClient\obj\Debug\net5.0\LibClient.csproj.AssemblyReference.cache
