@@ -29,15 +29,37 @@ namespace LibServer
         public int portNumber;
         public int ServerListeningQueue;
         public string configFile = @"../../../../ClientServerConfig.json";
+        Socket sock { get; set; }
+        string data = null;
+        byte[] buffer = new byte[1000];
+        byte[] msg = Encoding.ASCII.GetBytes("From server: Your message has been delivered\n");
 
         public SequentialServer()
         {
-                   //todo: implement the body. Add extra fields and methods to the class if it is needed
+            string configContent = File.ReadAllText(configFile);
+            this.settings = JsonSerializer.Deserialize<Setting>(configContent);
+            this.iPAddress = IPAddress.Parse(settings.ServerIPAddress);
+            this.portNumber = settings.ServerPortNumber;
+            this.ServerListeningQueue = settings.ServerListeningQueue;
+
+
+            IPEndPoint localEndpoint = new IPEndPoint(this.iPAddress, this.portNumber);
+
+            
+            sock = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+
+            sock.Bind(localEndpoint);
+            Console.WriteLine("\nSocket binding");
+            sock.Listen(ServerListeningQueue);
+            Console.WriteLine("\nWaiting for clients... (Listening)");
+            
+            
+
+            //todo: implement the body. Add extra fields and methods to the class if it is needed
         }
 
         public void sendMsg(string inp) 
         {
-            Socket sock = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
             Socket newSock = sock.Accept();
             byte [] inpInByte = Encoding.ASCII.GetBytes(inp);
             newSock.Send(inpInByte);
@@ -50,30 +72,11 @@ namespace LibServer
 
         public void start()
         {
-            string data = null;
-            byte[] buffer = new byte[1000];
-            byte[] msg = Encoding.ASCII.GetBytes("From server: Your message has been delivered\n");
-
-            string configContent = File.ReadAllText(configFile);
-            this.settings = JsonSerializer.Deserialize<Setting>(configContent);
-            this.iPAddress = IPAddress.Parse(settings.ServerIPAddress);
-            this.portNumber = settings.ServerPortNumber;
-            this.ServerListeningQueue = settings.ServerListeningQueue;
-
-
-            IPEndPoint localEndpoint = new IPEndPoint(this.iPAddress, this.portNumber);
-
-            Socket sock = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-
-            sock.Bind(localEndpoint);
-            Console.WriteLine("\nSocket binding");
-            sock.Listen(ServerListeningQueue);
-            Console.WriteLine("\nWaiting for clients... (Listening)");
-            Socket newSock = sock.Accept();
-            Console.WriteLine("Accetping sockets");
-
+            
             while (true)
             {
+                Socket newSock = sock.Accept();
+                Console.WriteLine("Accetping sockets");
                 int b = newSock.Receive(buffer);
                 data = Encoding.ASCII.GetString(buffer, 0, b);
 
@@ -91,7 +94,7 @@ namespace LibServer
                     msg = Encoding.ASCII.GetBytes(strWelcome);
                     newSock.Send(msg);
 
-                    //Content":"Client 0"}
+                    //Content":"Client 0"}//
                 }
 
                 else
