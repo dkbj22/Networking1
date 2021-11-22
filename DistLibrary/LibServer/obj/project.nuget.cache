@@ -1,10 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "0fRwaNst2t6Fg6r18oUg88pJeGpZtUny7h4/BgE0KpgfTf/v1V56QMnB4WyOqHFI/SNTBClNXGYMQG4/HSSw+A==",
+  "dgSpecHash": "DFVoBj5Si6xDLTJCNPOo8OQoj4/mCU7lKIyGkypfKONW2eAZ8MNo0GjaAfn8z3n8oBJRqRlpIVJ7cVGA6vbYzw==",
   "success": true,
-  "projectFilePath": "C:\\Users\\dkbj2\\Documents\\Studie\\Jaar 2\\OP1\\ANL\\NetworkingProject1\\DistLibrary\\LibServer\\LibServer.csproj",
-  "expectedPackageFiles": [
-    "C:\\Users\\dkbj2\\.nuget\\packages\\microsoft.netcore.app.host.win-x64\\5.0.12\\microsoft.netcore.app.host.win-x64.5.0.12.nupkg.sha512"
-  ],
+  "projectFilePath": "C:\\Users\\tobiz\\Source\\Repos\\dkbj22\\Networking1\\DistLibrary\\LibServer\\LibServer.csproj",
+  "expectedPackageFiles": [],
   "logs": []
 }

@@ -48,6 +48,7 @@ namespace LibClient
 
         // todo: add extra fields here in case needed 
         public int ServerPortNumber;
+        byte[] buffer = new byte[1000];
 
         // public IPAddress ServerIPAddress;
         /// <summary>
@@ -83,14 +84,15 @@ namespace LibClient
         /// <returns>The result of the request</returns>
         /// 
 
-        public void recieveMsgClient()
+        public void receiveMsgClient(Socket sock)
         {
-
+            int receiveBytes = sock.Receive(buffer);
+            string strBytes = Encoding.ASCII.GetString(buffer, 0, receiveBytes);
+            Console.WriteLine(strBytes + " - Received from server with receiveMsgClient");
         }
 
         public void sendMsgClient(Message input, IPEndPoint sender, Socket sock)
         {
-
             string inputString = JsonSerializer.Serialize(input);
             byte[] msg = Encoding.ASCII.GetBytes(inputString);
             sock.SendTo(msg, msg.Length, SocketFlags.None, sender);
@@ -105,7 +107,7 @@ namespace LibClient
             this.ipAddress = IPAddress.Parse(settings.ServerIPAddress);
             this.ServerPortNumber = settings.ServerPortNumber;
 
-            byte[] buffer = new byte[1000];
+            
             byte[] msg = null;
 
             Message hello = new Message();
@@ -128,21 +130,15 @@ namespace LibClient
 
             try
             {
+                //Sending and receiving msgs
                 sendMsgClient(hello, sender, sock);
-                int responseInt = sock.ReceiveFrom(buffer, ref remoteEP);
-                string data = Encoding.ASCII.GetString(buffer, 0, responseInt);
-                Console.WriteLine("Server response: " + data);
+                receiveMsgClient(sock);
             }
             catch 
             { 
                 Console.WriteLine("Message error"); 
             }
-            
-            //Socket newSock = sock.Accept();
-            int b = sock.Receive(buffer);
-            string welcomeMessage = Encoding.ASCII.GetString(buffer, 0, b);
-            Console.WriteLine(welcomeMessage);
-            
+
 
             // todo: implement the body to communicate with the server and requests the book. Return the result as an Output object.
             // Adding extra methods to the class is permitted. The signature of this method must not change.
