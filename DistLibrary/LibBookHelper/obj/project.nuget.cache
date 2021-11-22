@@ -1,8 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "LJAlH1INAmL2cYPPnckOZ4cHgPS95N7E6PXEKz33KTQg77hfpm3A5U6/31RMrmowki0W8qH3llyGCUb/UNCRDA==",
+  "dgSpecHash": "NN5Ih2/I8BsWd83jrVNjyTEOVQflfnvVjRRJkLTjboWV8HJxo1N5nyhHHiQYDfYtl2vAymY0ix0jy93/6JfziQ==",
   "success": true,
   "projectFilePath": "C:\\Users\\dkbj2\\Documents\\Studie\\Jaar 2\\OP1\\ANL\\NetworkingProject1\\DistLibrary\\LibBookHelper\\BookHelper.csproj",
-  "expectedPackageFiles": [],
+  "expectedPackageFiles": [
+    "C:\\Users\\dkbj2\\.nuget\\packages\\microsoft.netcore.app.host.win-x64\\5.0.12\\microsoft.netcore.app.host.win-x64.5.0.12.nupkg.sha512"
+  ],
   "logs": []
 }

@@ -66,9 +66,13 @@ namespace LibServer
             sock.Send(inputInByte);
         }
 
-        public void recieveMsg()
+        public string[] recieveMsgServer(Socket newSock)
         {
-
+            int b = newSock.Receive(buffer);
+            data = Encoding.ASCII.GetString(buffer, 0, b);
+            string[] typeAndContent = new string[2];
+            typeAndContent = data.Split(",");
+            return typeAndContent;
         }
 
         public void start()
@@ -78,12 +82,8 @@ namespace LibServer
             {
                 Socket newSock = sock.Accept();
                 Console.WriteLine("Accetping sockets");
-                int b = newSock.Receive(buffer);
-                data = Encoding.ASCII.GetString(buffer, 0, b);
 
-
-                string[] typeAndContent = new string [2];
-                typeAndContent = data.Split(",");
+                string[] typeAndContent = recieveMsgServer(newSock);
 
                 if (typeAndContent[0] == "{\"Type\":0")
                 {
@@ -91,12 +91,6 @@ namespace LibServer
                     welcome.Type = MessageType.Welcome;
                     welcome.Content = "";
                     sendMsg(welcome, newSock);
-
-                    
-
-                    string strWelcome = JsonSerializer.Serialize(welcome);
-                    msg = Encoding.ASCII.GetBytes(strWelcome);
-                    newSock.Send(msg);
 
                     //Content":"Client 0"}//
                 }

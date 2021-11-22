@@ -83,20 +83,21 @@ namespace LibClient
         /// <returns>The result of the request</returns>
         /// 
 
+        public void recieveMsgClient()
+        {
+
+        }
 
         public Output start()
         {
             Console.WriteLine("start()");
-            // Tobias 10-11-2021
             string configContent = File.ReadAllText(configFile);
             this.settings = JsonSerializer.Deserialize<Setting>(configContent);
             this.ipAddress = IPAddress.Parse(settings.ServerIPAddress);
             this.ServerPortNumber = settings.ServerPortNumber;
-            //
 
             byte[] buffer = new byte[1000];
             byte[] msg = null;
-
 
             Message hello = new Message();
             hello.Content = this.client_id;
@@ -105,7 +106,6 @@ namespace LibClient
             string strhellomsg = JsonSerializer.Serialize(hello);
             msg = Encoding.ASCII.GetBytes(strhellomsg);
             
-
             IPEndPoint sender = new IPEndPoint(ipAddress, ServerPortNumber); 
             EndPoint remoteEP = (EndPoint)sender;
             Socket sock = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
