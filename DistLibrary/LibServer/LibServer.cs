@@ -58,7 +58,7 @@ namespace LibServer
             //todo: implement the body. Add extra fields and methods to the class if it is needed
         }
 
-        public void sendMsg(Message input, Socket sock)
+        public void sendMsgServer(Message input, Socket sock)
         {
             string strInput = JsonSerializer.Serialize(input);
             Console.WriteLine(strInput);
@@ -90,7 +90,7 @@ namespace LibServer
                     Message welcome = new Message();
                     welcome.Type = MessageType.Welcome;
                     welcome.Content = "";
-                    sendMsg(welcome, newSock);
+                    sendMsgServer(welcome, newSock);
 
                     //Content":"Client 0"}//
                 }
