@@ -84,13 +84,6 @@ namespace LibClient
         /// <returns>The result of the request</returns>
         /// 
 
-        public void receiveMsgClient(Socket sock)
-        {
-            int receiveBytes = sock.Receive(buffer);
-            string strBytes = Encoding.ASCII.GetString(buffer, 0, receiveBytes);
-            Console.WriteLine(strBytes + " - Received from server with receiveMsgClient");
-        }
-
         public void sendMsgClient(Message input, IPEndPoint sender, Socket sock)
         {
             string inputString = JsonSerializer.Serialize(input);
@@ -98,6 +91,17 @@ namespace LibClient
             sock.SendTo(msg, msg.Length, SocketFlags.None, sender);
             Console.WriteLine("Sending message to server");
         }
+
+        public string[] receiveMsgClient(Socket sock)
+        {
+            int receiveBytes = sock.Receive(buffer);
+            string data = Encoding.ASCII.GetString(buffer, 0, receiveBytes);
+            string[] typeAndContent = new string[2];
+            typeAndContent = data.Split(",");
+            Console.WriteLine(typeAndContent[0] + typeAndContent[1] + " - Received from server with receiveMsgClient");
+            return typeAndContent;
+        }
+       
 
         public Output start()
         {
