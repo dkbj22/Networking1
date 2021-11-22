@@ -66,7 +66,7 @@ namespace LibServer
             sock.Send(inputInByte);
         }
 
-        public string[] recieveMsgServer(Socket newSock)
+        public string[] receiveMsgServer(Socket newSock)
         {
             int b = newSock.Receive(buffer);
             data = Encoding.ASCII.GetString(buffer, 0, b);
@@ -83,7 +83,7 @@ namespace LibServer
                 Socket newSock = sock.Accept();
                 Console.WriteLine("Accetping sockets");
 
-                string[] typeAndContent = recieveMsgServer(newSock);
+                string[] typeAndContent = receiveMsgServer(newSock);
 
                 if (typeAndContent[0] == "{\"Type\":0")
                 {
