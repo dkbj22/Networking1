@@ -88,6 +88,15 @@ namespace LibClient
 
         }
 
+        public void sendMsgClient(Message input, IPEndPoint sender, Socket sock)
+        {
+
+            string inputString = JsonSerializer.Serialize(input);
+            byte[] msg = Encoding.ASCII.GetBytes(inputString);
+            sock.SendTo(msg, msg.Length, SocketFlags.None, sender);
+            Console.WriteLine("Sending message to server");
+        }
+
         public Output start()
         {
             Console.WriteLine("start()");
@@ -102,10 +111,7 @@ namespace LibClient
             Message hello = new Message();
             hello.Content = this.client_id;
             hello.Type = MessageType.Hello;
-;            
-            string strhellomsg = JsonSerializer.Serialize(hello);
-            msg = Encoding.ASCII.GetBytes(strhellomsg);
-            
+                       
             IPEndPoint sender = new IPEndPoint(ipAddress, ServerPortNumber); 
             EndPoint remoteEP = (EndPoint)sender;
             Socket sock = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
@@ -122,8 +128,7 @@ namespace LibClient
 
             try
             {
-                sock.SendTo(msg, msg.Length, SocketFlags.None, sender);
-                Console.WriteLine("Sending message to server");
+                sendMsgClient(hello, sender, sock);
                 int responseInt = sock.ReceiveFrom(buffer, ref remoteEP);
                 string data = Encoding.ASCII.GetString(buffer, 0, responseInt);
                 Console.WriteLine("Server response: " + data);
