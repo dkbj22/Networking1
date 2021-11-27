@@ -115,8 +115,14 @@ namespace LibClient
             byte[] msg = null;
 
             Message hello = new Message();
-            hello.Content = this.client_id;
             hello.Type = MessageType.Hello;
+            hello.Content = this.client_id;
+            
+
+            Message bookInquiry = new Message();
+            bookInquiry.Type = MessageType.BookInquiry;
+            bookInquiry.Content = this.bookName;
+
                        
             IPEndPoint sender = new IPEndPoint(ipAddress, ServerPortNumber); 
             EndPoint remoteEP = (EndPoint)sender;
@@ -137,6 +143,10 @@ namespace LibClient
                 //Sending and receiving msgs
                 sendMsgClient(hello, sender, sock);
                 receiveMsgClient(sock);
+                Console.WriteLine("MSG type 2 about to be sent");
+                Console.ReadLine();
+                sendMsgClient(bookInquiry, sender, sock);
+                Console.WriteLine("\nMessage type 2 is sent from client");
             }
             catch 
             { 

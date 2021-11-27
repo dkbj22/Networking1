@@ -30,3 +30,19 @@ C:\Users\tobiz\Source\Repos\dkbj22\Networking1\DistLibrary\LibClient\obj\Debug\n
 C:\Users\tobiz\Source\Repos\dkbj22\Networking1\DistLibrary\LibClient\obj\Debug\net5.0\LibClient.pdb
 C:\Users\tobiz\Source\Repos\dkbj22\Networking1\DistLibrary\LibClient\obj\Debug\net5.0\LibClient.genruntimeconfig.cache
 C:\Users\dkbj2\Documents\Studie\Jaar 2\OP1\ANL\NetworkingProject1\DistLibrary\LibClient\obj\Debug\net5.0\LibClient.csproj.AssemblyReference.cache
+C:\Users\dkbj2\Documents\Studie\Jaar 2\OP1\ANL\AnalyseProject1\DistLibrary\LibClient\bin\Debug\net5.0\LibClient.exe
+C:\Users\dkbj2\Documents\Studie\Jaar 2\OP1\ANL\AnalyseProject1\DistLibrary\LibClient\bin\Debug\net5.0\LibClient.deps.json
+C:\Users\dkbj2\Documents\Studie\Jaar 2\OP1\ANL\AnalyseProject1\DistLibrary\LibClient\bin\Debug\net5.0\LibClient.runtimeconfig.json
+C:\Users\dkbj2\Documents\Studie\Jaar 2\OP1\ANL\AnalyseProject1\DistLibrary\LibClient\bin\Debug\net5.0\LibClient.runtimeconfig.dev.json
+C:\Users\dkbj2\Documents\Studie\Jaar 2\OP1\ANL\AnalyseProject1\DistLibrary\LibClient\bin\Debug\net5.0\LibClient.dll
+C:\Users\dkbj2\Documents\Studie\Jaar 2\OP1\ANL\AnalyseProject1\DistLibrary\LibClient\bin\Debug\net5.0\ref\LibClient.dll
+C:\Users\dkbj2\Documents\Studie\Jaar 2\OP1\ANL\AnalyseProject1\DistLibrary\LibClient\bin\Debug\net5.0\LibClient.pdb
+C:\Users\dkbj2\Documents\Studie\Jaar 2\OP1\ANL\AnalyseProject1\DistLibrary\LibClient\obj\Debug\net5.0\LibClient.csproj.AssemblyReference.cache
+C:\Users\dkbj2\Documents\Studie\Jaar 2\OP1\ANL\AnalyseProject1\DistLibrary\LibClient\obj\Debug\net5.0\LibClient.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\dkbj2\Documents\Studie\Jaar 2\OP1\ANL\AnalyseProject1\DistLibrary\LibClient\obj\Debug\net5.0\LibClient.AssemblyInfoInputs.cache
+C:\Users\dkbj2\Documents\Studie\Jaar 2\OP1\ANL\AnalyseProject1\DistLibrary\LibClient\obj\Debug\net5.0\LibClient.AssemblyInfo.cs
+C:\Users\dkbj2\Documents\Studie\Jaar 2\OP1\ANL\AnalyseProject1\DistLibrary\LibClient\obj\Debug\net5.0\LibClient.csproj.CoreCompileInputs.cache
+C:\Users\dkbj2\Documents\Studie\Jaar 2\OP1\ANL\AnalyseProject1\DistLibrary\LibClient\obj\Debug\net5.0\LibClient.dll
+C:\Users\dkbj2\Documents\Studie\Jaar 2\OP1\ANL\AnalyseProject1\DistLibrary\LibClient\obj\Debug\net5.0\ref\LibClient.dll
+C:\Users\dkbj2\Documents\Studie\Jaar 2\OP1\ANL\AnalyseProject1\DistLibrary\LibClient\obj\Debug\net5.0\LibClient.pdb
+C:\Users\dkbj2\Documents\Studie\Jaar 2\OP1\ANL\AnalyseProject1\DistLibrary\LibClient\obj\Debug\net5.0\LibClient.genruntimeconfig.cache

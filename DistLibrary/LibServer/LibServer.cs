@@ -95,11 +95,21 @@ namespace LibServer
                     //Content":"Client 0"}//
                 }
 
+                typeAndContent = receiveMsgServer(newSock);
+
+                if (typeAndContent[0] == "{\"Type\":2")
+                {
+                    //TODO: The server forwards the book request to the BookHelper
+
+                    //TODO: Ontvang message van bookhelper
+
+                    /*  TypeAndContent[0]       TypeAndContent[1]*/
+                    /*{     Type:1 */   /* , */ /* Content:Titel} */
+                }
+
                 else
                 {
-                    //Console.WriteLine("" + data);
-                    data = null;
-                    newSock.Send(msg);
+                    Console.WriteLine("No correct message recieved!!!");
                 }
             }
             sock.Close();
