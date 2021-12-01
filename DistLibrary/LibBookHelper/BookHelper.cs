@@ -80,10 +80,22 @@ namespace BookHelper
             return typeAndContent;
         }
 
+        public BookData ReadFromJson()
+        {
+            BookData jsnBook;
+            string configContent = File.ReadAllText(@"../../../Books.json");
+            jsnBook = JsonSerializer.Deserialize<BookData>(configContent);
+            
+            return jsnBook;
+        }
+
         public void start()
         {
             while (true)
             {
+                ReadFromJson();
+                break;
+
                 Socket newSock = sock.Accept();
                 Console.WriteLine("Accetping sockets");
 
@@ -92,9 +104,14 @@ namespace BookHelper
                 if (typeAndContent[0] == "{\"Type\":2")
                 {
                     //Check json if book available
+                    BookData jsnBook = ReadFromJson();
+                    /*foreach(string title in jsnBook.Title)
+                    {
+
+                    }*/
                     Message bookInquiryReply = new Message();
                     bookInquiryReply.Type = MessageType.BookInquiryReply;
-                    bookInquiryReply.Content = "Test book reply"; //json read 
+                    bookInquiryReply.Content = "string";  //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
                     sendMsgBookHelper(bookInquiryReply, newSock);
 
                     //Content":"Book"}//

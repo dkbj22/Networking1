@@ -1,4 +1,5 @@
-﻿// NOTE: THIS FILE MUST NOT CHANGE
+﻿
+// NOTE: THIS FILE MUST NOT CHANGE
 
 namespace LibData
 {
