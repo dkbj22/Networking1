@@ -7,4 +7,4 @@ build_property.PublishSingleFile =
 build_property.IncludeAllContentForSelfExtract = 
 build_property._SupportedPlatformList = Android,iOS,Linux,macOS,Windows
 build_property.RootNamespace = BookHelper
-build_property.ProjectDir = C:\Users\dkbj2\Documents\Studie\Jaar 2\OP1\ANL\AnalyseProject1\DistLibrary\LibBookHelper\
+build_property.ProjectDir = C:\Users\tobiz\Source\Repos\dkbj22\Networking1\DistLibrary\LibBookHelper\

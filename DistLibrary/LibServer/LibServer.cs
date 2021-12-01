@@ -29,28 +29,40 @@ namespace LibServer
         public int portNumber;
         public int ServerListeningQueue;
         public string configFile = @"../../../../ClientServerConfig.json";
-        Socket sock { get; set; }
+        Socket clientSock { get; set; }
+        IPEndPoint bookHelperEndPoint { get; set; }
+
         string data = null;
         byte[] buffer = new byte[1000];
         byte[] msg = Encoding.ASCII.GetBytes("From server: Your message has been delivered\n");
+
 
         public SequentialServer()
         {
             string configContent = File.ReadAllText(configFile);
             this.settings = JsonSerializer.Deserialize<Setting>(configContent);
+
             this.iPAddress = IPAddress.Parse(settings.ServerIPAddress);
+            IPAddress BookHelperIPAddress = IPAddress.Parse(settings.BookHelperIPAddress);
+            IPAddress UserHelperIPAddress = IPAddress.Parse(settings.UserHelperIPAddress);
+
             this.portNumber = settings.ServerPortNumber;
+            int BookHelperPortNumber = settings.BookHelperPortNumber;
+            int UserHelperPortNumber = settings.UserHelperPortNumber;
+
             this.ServerListeningQueue = settings.ServerListeningQueue;
 
 
             IPEndPoint localEndpoint = new IPEndPoint(this.iPAddress, this.portNumber);
+            bookHelperEndPoint = new IPEndPoint(BookHelperIPAddress, BookHelperPortNumber);
 
+            clientSock = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
             
-            sock = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
 
-            sock.Bind(localEndpoint);
+
+            clientSock.Bind(localEndpoint);
             Console.WriteLine("\nSocket binding");
-            sock.Listen(ServerListeningQueue);
+            clientSock.Listen(ServerListeningQueue);
             Console.WriteLine("\nWaiting for clients... (Listening)");
             
             
@@ -80,7 +92,7 @@ namespace LibServer
             
             while (true)
             {
-                Socket newSock = sock.Accept();
+                Socket newSock = clientSock.Accept();
                 Console.WriteLine("Accetping sockets");
 
                 string[] typeAndContent = receiveMsgServer(newSock);
@@ -99,6 +111,24 @@ namespace LibServer
 
                 if (typeAndContent[0] == "{\"Type\":2")
                 {
+                    try
+                    {
+                        Socket bookHelperSock = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+
+                        bookHelperSock.Connect(bookHelperEndPoint);
+                        Message copyBookInquiry = new Message();
+                        copyBookInquiry.Type = MessageType.BookInquiry;
+                        copyBookInquiry.Content = typeAndContent[1];
+                        Console.WriteLine("before sending message");
+                        sendMsgServer(copyBookInquiry, bookHelperSock);
+                        Console.WriteLine("end of try");
+                    }
+                    catch
+                    {
+                        Console.WriteLine("could not connect to Book helper server");
+                    }
+
+                    
                     //TODO: The server forwards the book request to the BookHelper
 
                     //TODO: Ontvang message van bookhelper
@@ -107,12 +137,19 @@ namespace LibServer
                     /*{     Type:1 */   /* , */ /* Content:Titel} */
                 }
 
+                typeAndContent = receiveMsgServer(newSock);
+
+                if (typeAndContent[0] == "{\"Type\":3")
+                {
+                   
+                }
+
                 else
                 {
                     Console.WriteLine("No correct message recieved!!!");
                 }
             }
-            sock.Close();
+            clientSock.Close();
             //todo: implement the body. Add extra fields and methods to the class if it is needed
 
         }

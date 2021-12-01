@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\dkbj2\\Documents\\Studie\\Jaar 2\\OP1\\ANL\\AnalyseProject1\\DistLibrary\\LibUserHelper\\UserHelper.csproj": {}
+    "C:\\Users\\tobiz\\Source\\Repos\\dkbj22\\Networking1\\DistLibrary\\LibUserHelper\\UserHelper.csproj": {}
   },
   "projects": {
-    "C:\\Users\\dkbj2\\Documents\\Studie\\Jaar 2\\OP1\\ANL\\AnalyseProject1\\DistLibrary\\LibUserHelper\\UserHelper.csproj": {
+    "C:\\Users\\tobiz\\Source\\Repos\\dkbj22\\Networking1\\DistLibrary\\LibUserHelper\\UserHelper.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\dkbj2\\Documents\\Studie\\Jaar 2\\OP1\\ANL\\AnalyseProject1\\DistLibrary\\LibUserHelper\\UserHelper.csproj",
+        "projectUniqueName": "C:\\Users\\tobiz\\Source\\Repos\\dkbj22\\Networking1\\DistLibrary\\LibUserHelper\\UserHelper.csproj",
         "projectName": "UserHelper",
-        "projectPath": "C:\\Users\\dkbj2\\Documents\\Studie\\Jaar 2\\OP1\\ANL\\AnalyseProject1\\DistLibrary\\LibUserHelper\\UserHelper.csproj",
-        "packagesPath": "C:\\Users\\dkbj2\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\dkbj2\\Documents\\Studie\\Jaar 2\\OP1\\ANL\\AnalyseProject1\\DistLibrary\\LibUserHelper\\obj\\",
+        "projectPath": "C:\\Users\\tobiz\\Source\\Repos\\dkbj22\\Networking1\\DistLibrary\\LibUserHelper\\UserHelper.csproj",
+        "packagesPath": "C:\\Users\\tobiz\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\tobiz\\Source\\Repos\\dkbj22\\Networking1\\DistLibrary\\LibUserHelper\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\dkbj2\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\tobiz\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [

@@ -2,9 +2,8 @@
   "ExpandedNodes": [
     "",
     "\\DistLibrary",
-    "\\DistLibrary\\LibClient",
-    "\\DistLibrary\\LibServer"
+    "\\DistLibrary\\LibBookHelper"
   ],
-  "SelectedNode": "\\DistLibrary\\LibServer\\LibServer.cs",
+  "SelectedNode": "\\DistLibrary\\LibBookHelper\\Books.json",
   "PreviewInSolutionExplorer": false
 }
