@@ -147,18 +147,24 @@ namespace LibServer
                     /*  TypeAndContent[0]       TypeAndContent[1]*/
                     /*{     Type:1 */   /* , */ /* Content:Titel} */
                 }
-
+                Console.WriteLine("About to receive MSG4");
                 typeAndContent = receiveMsgServer(newSock);
+                Console.WriteLine(typeAndContent[0]);
+                Console.WriteLine(correctContent(typeAndContent[1]));
 
                 if (typeAndContent[0] == "{\"Type\":4")
                 {
-                   
+                    Console.WriteLine("Book found & recieved");
+                    Console.WriteLine(typeAndContent[0]);
+                    Console.WriteLine(correctContent(typeAndContent[1]));
                 }
+                else { Console.WriteLine("Type 4 NOT RECIEVED"); }
 
-                else
+                if (typeAndContent[0] == "{\"Type\":8")
                 {
-                    Console.WriteLine("No correct message recieved!!!");
+                    Console.WriteLine("test succesful but book not found");
                 }
+                else { Console.WriteLine("Type 4 NOT RECIEVED"); }
             }
             clientSock.Close();
             //todo: implement the body. Add extra fields and methods to the class if it is needed

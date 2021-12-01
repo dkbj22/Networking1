@@ -80,22 +80,25 @@ namespace BookHelper
             return typeAndContent;
         }
 
-        public BookData ReadFromJson()
+        public BookData[] ReadFromJson()
         {
-            BookData jsnBook;
             string configContent = File.ReadAllText(@"../../../Books.json");
-            jsnBook = JsonSerializer.Deserialize<BookData>(configContent);
-            
-            return jsnBook;
+            BookData[] books = JsonSerializer.Deserialize<BookData[]>(configContent);
+            return books;
+        }
+
+        public string correctContent(string badContent)
+        {
+            string removedEnd = badContent.Remove(badContent.Length - 2);
+            string removeBegin = removedEnd.Remove(0, 11);
+            Console.WriteLine(removeBegin);
+            return removeBegin;
         }
 
         public void start()
         {
             while (true)
             {
-                ReadFromJson();
-                break;
-
                 Socket newSock = sock.Accept();
                 Console.WriteLine("Accetping sockets");
 
@@ -103,18 +106,33 @@ namespace BookHelper
 
                 if (typeAndContent[0] == "{\"Type\":2")
                 {
+
                     //Check json if book available
-                    BookData jsnBook = ReadFromJson();
-                    /*foreach(string title in jsnBook.Title)
+                    string goodContent = correctContent(typeAndContent[1]);
+
+                    BookData[] jsnBook = ReadFromJson();
+                    string bookContent;
+                    bool found = false;
+                    foreach (BookData obj in jsnBook) 
+                    { 
+                        if(obj.Title == goodContent)
+                        {
+                            bookContent = $"Title: {obj.Title}, author: {obj.Author}, Status: {obj.Status}, BorrowedBy: {obj.BorrowedBy}, ReturnDate: {obj.ReturnDate}";
+                            Message bookInquiryReply = new Message();
+                            bookInquiryReply.Type = MessageType.BookInquiryReply;
+                            bookInquiryReply.Content = bookContent;
+                            sendMsgBookHelper(bookInquiryReply, newSock);
+                            found = true;
+                            break;
+                        }
+                    }
+                    if (!found)
                     {
-
-                    }*/
-                    Message bookInquiryReply = new Message();
-                    bookInquiryReply.Type = MessageType.BookInquiryReply;
-                    bookInquiryReply.Content = "string";  //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-                    sendMsgBookHelper(bookInquiryReply, newSock);
-
-                    //Content":"Book"}//
+                        Message notFound = new Message();
+                        notFound.Type = MessageType.NotFound;
+                        notFound.Content = $"Book: {goodContent}, not found";
+                        sendMsgBookHelper(notFound, newSock);
+                    }
                 }
 
                 else
