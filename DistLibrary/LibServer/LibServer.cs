@@ -82,10 +82,21 @@ namespace LibServer
         {
             int b = newSock.Receive(buffer);
             data = Encoding.ASCII.GetString(buffer, 0, b);
+            Console.WriteLine(data);
             string[] typeAndContent = new string[2];
             typeAndContent = data.Split(",");
+            Console.WriteLine(typeAndContent[1]);
             return typeAndContent;
         }
+
+        public string correctContent(string badContent)
+        {
+            string removedEnd = badContent.Remove(badContent.Length - 2);
+            string removeBegin = removedEnd.Remove(0,11);
+            Console.WriteLine(removeBegin);
+            return removeBegin;
+        }
+
 
         public void start()
         {
@@ -118,7 +129,7 @@ namespace LibServer
                         bookHelperSock.Connect(bookHelperEndPoint);
                         Message copyBookInquiry = new Message();
                         copyBookInquiry.Type = MessageType.BookInquiry;
-                        copyBookInquiry.Content = typeAndContent[1];
+                        copyBookInquiry.Content = correctContent(typeAndContent[1]);
                         Console.WriteLine("before sending message");
                         sendMsgServer(copyBookInquiry, bookHelperSock);
                         Console.WriteLine("end of try");
@@ -139,7 +150,7 @@ namespace LibServer
 
                 typeAndContent = receiveMsgServer(newSock);
 
-                if (typeAndContent[0] == "{\"Type\":3")
+                if (typeAndContent[0] == "{\"Type\":4")
                 {
                    
                 }
